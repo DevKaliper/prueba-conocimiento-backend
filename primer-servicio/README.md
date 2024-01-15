@@ -1,53 +1,32 @@
 # primer-servicio
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+---
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+## Primer servicio 
 
-## Running the application in dev mode
+El primer servicio corre en el puerto 8080 y expone un endpoint GET cuya endpoint o ruta es la siguiente: /api/romano/{numero}. Donde {numero} es un PATH parameter y es digito entero. El servicio  devuelve en su body el string equivalente en numeración romana. Ejemplo: {numero} = 25, respuesta: XXV
 
-You can run your application in dev mode that enables live coding using:
+Puede correr la aplicacion ejecutando el comando:
 ```shell script
 ./mvnw compile quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
-## Packaging and running the application
+---
 
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+## Testeando el servico con PostMan
+### Cuando se le pasa el valor 25 como parámetro -> devuelve XXV
+![image](https://github.com/DevKaliper/prueba-conocimiento-backend/assets/122651755/b53f3e61-7f12-4722-ad75-df6165538db2)
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+---
+### Cuando se le pasa el valor 10 como parámetro -> devuelve X
+![image](https://github.com/DevKaliper/prueba-conocimiento-backend/assets/122651755/0714ee59-5823-433a-bf15-8208f2d65d14)
 
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
-```
+---
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+## Referencias 
+<h3> Para el algoritmo conversor a número romano se consultó la pagina https://codingnconcepts.com/java/integer-to-roman/ en el apartado 2.2 "Improvement using Arrays" </h3>
+<br>
 
-## Creating a native executable
+![image](https://github.com/DevKaliper/prueba-conocimiento-backend/assets/122651755/16ad62ef-1444-4696-ac4e-db4bd1b6d73f)
 
-You can create a native executable using: 
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/primer-servicio-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
-
-- REST resources for Hibernate ORM with Panache ([guide](https://quarkus.io/guides/rest-data-panache)): Generate Jakarta REST resources for your Hibernate Panache entities and repositories
-- JDBC Driver - H2 ([guide](https://quarkus.io/guides/datasource)): Connect to the H2 database via JDBC
