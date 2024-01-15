@@ -14,7 +14,7 @@ import util.RomanoUtil;
 public class RomanoResource {
 
     @Inject
-    RomanoUtil util;
+    RomanoUtil util; //Inyecta la dependencia de RomanoUtil
 
     @GET
     public Response convertToRoman(@PathParam("numero") String numero){
@@ -25,7 +25,7 @@ public class RomanoResource {
                 return Response.ok().entity("N").build();
             }
 
-           return Response.ok().entity(util.integerToRoman(num)).build(); //Me retorna el número en formato romano
+           return Response.ok().entity(util.integerToRoman(num)).build(); //Me retorna el número en formato romano. Mediante el método integerToRoman(int) de RomanoUtil
         }
         catch (NumberFormatException e){
             return Response.status(400).entity(new ResponseError("No colocaste un número válido")).build(); //si se colocaron letras, me devuelve en objeto con la propiedad error y el mensaje

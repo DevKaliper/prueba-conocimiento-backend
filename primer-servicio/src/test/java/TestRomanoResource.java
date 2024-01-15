@@ -20,11 +20,11 @@ public class TestRomanoResource {
 
 
        given()
-                .pathParam("numero", "25")
-                .when().get("/api/romano/{numero}")
-                .then()
-                .statusCode(200)
-                .body(equalTo("XXV"));
+                .pathParam("numero", "25") //Cuando se le pasa por parámetro el numero 25
+                .when().get("/api/romano/{numero}")//Al Endpoint expuesto
+                .then() //Me va a retornar
+                .statusCode(200)//El código de estado 200
+                .body(equalTo("XXV")); //Y en su body el string "XXV"
     }
 
     @Test
