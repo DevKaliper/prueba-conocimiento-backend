@@ -1,53 +1,95 @@
 # segundo-servicio
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
-
-## Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
+Puede correr la aplicacion ejecutando el comando:
 ```shell script
 ./mvnw compile quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+---
 
-## Packaging and running the application
+El segundo servicio corre en el puerto 8081 y expone un endpoint POST cuya entrada es la siguiente:
+<ul>
+  <li>nombre</li>
+  <li>apellido</li>
+  <li>fechaDeNacimiento (LocalDate)</li>
+  <li> cedula Cedula con el formato panameño (ejemplo: 1-111-1111)</li>
+  
+---
+## Reglas de valicación 
+<ul>
+  <li>
+    El nombre y apellido solo puede incluir letras del alfabeto, mayúsculas y
+minúsculas, espacio en blanco y tildes.
+  </li>
+  <li>
+    Que la edad calculada en base a la fecha de nacimiento este dentro del rango de
+18 a 50 años
+  </li>
+  <li>
+    Que la cedula cumpla con el formato ##-####-#####, o sea solo dígitos y
+separados con guiones
+  </li>
+  <li>
+    En caso de que las validaciones de arriba no se cumplen debe devolver un error
+con status 400 de Bad Request.
+  </li>
 
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+  <li>
+    Si de pasar las validaciones, debe de consumir al primer servicio a través de un cliente
+REST al servicio de números romanos e enviarle la edad calculada para obtener su
+numeración en romano
+  </li>
+ 
+</ul>
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+<hr>
+  <h2>Debe devolver una estructura con dos campos </h2>
+  <ul>
+    <li>
+     - Nombre completo: Primero nombre y segundo nombre.
+      <br>
+    - Edad: su edad es valor (ejemplo 21) años.
+           <br>
+    - Romano: su edad en número romano es: XXI.
+    </li>
+    <li>
+      HTTP Status 200.
+    </li>
+  </ul>
 
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
-```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+---
+## Testeando el servico con PostMan
+### Pasandole los valores correspondientes 
+![image](https://github.com/DevKaliper/prueba-conocimiento-backend/assets/122651755/8d9a90a4-6fbc-4a91-a7e2-6b9fbd710f2f)
 
-## Creating a native executable
 
-You can create a native executable using: 
-```shell script
-./mvnw package -Dnative
-```
+---
+### Pasandole el nombre vacío
+![image](https://github.com/DevKaliper/prueba-conocimiento-backend/assets/122651755/1ecea755-3c71-413b-b16e-dd743d4b35e2)
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
 
-You can then execute your native executable with: `./target/segundo-servicio-1.0.0-SNAPSHOT-runner`
+---
 
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
 
-## Related Guides
+### Pasandole el una fecha de nacimiento futura
+![image](https://github.com/DevKaliper/prueba-conocimiento-backend/assets/122651755/f549d2cb-4155-41ff-9759-e5870790d6b8)
 
-- JDBC Driver - H2 ([guide](https://quarkus.io/guides/datasource)): Connect to the H2 database via JDBC
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
+
+
+---
+
+
+### Pasandole una cedula en otro formato
+![image](https://github.com/DevKaliper/prueba-conocimiento-backend/assets/122651755/7f37f0f3-f2ea-4ba9-86e7-3ede5e5731dc)
+
+
+
+
+---
+
+### Si la edad no está entre 18 y 50 años
+![image](https://github.com/DevKaliper/prueba-conocimiento-backend/assets/122651755/9c998d01-bf05-4ed3-ac7e-85bc6f1102f6)
+
+---
+
